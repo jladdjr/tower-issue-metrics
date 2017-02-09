@@ -19,9 +19,9 @@ CREATE_TABLE = False
 ADD_TODAYS_ISSUE_COUNT = False
 
 # Monte Carlo
-NUM_SAMPLE_WEEKS = 3       # Simulations will be based on this many weeks of past performance
-NUM_SIMULATIONS = 100000   # Number of Monte Carlo simulations
-SAMPLE_CEILING = 60        # A given simulation will be cut off after reaching this value
+NUM_SAMPLE_WEEKS = 2        # Simulations will be based on this many weeks of past performance
+NUM_SIMULATIONS = 100000    # Number of Monte Carlo simulations
+SAMPLE_CEILING = 365        # A given simulation will be cut off after reaching this value
 
 # Plotly
 PLOTLY_FILENAME = 'monte_carlo'
@@ -129,6 +129,14 @@ for i in range(SAMPLE_CEILING):
     print("{0:%b %d} - {1}".format(current_day, total))
     current_day += day
 
+    if total > 99.9:
+        break
+
 trace = go.Scatter(x=x, y=y)
-plot_url = py.plot([trace], filename=PLOTLY_FILENAME)
+layout = dict(title = 'Tower 3.1: All Med/High Issues Closed',
+              xaxis = dict(title = 'Date'),
+              yaxis = dict(title = 'Cumulative Frequency (%)'),
+              )
+figure = dict(data=[trace], layout=layout)
+plot_url = py.plot(figure, filename=PLOTLY_FILENAME, layout=layout)
 print "Plot URL: {0}".format(plot_url)
