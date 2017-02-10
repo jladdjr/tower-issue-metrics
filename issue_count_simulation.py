@@ -49,7 +49,7 @@ if ADD_TODAYS_ISSUE_COUNT:
     conn.commit()
 
 # Collect past performance
-print("Load past performance")
+print("/nLoad past performance")
 today = date.today()
 day = timedelta(days=1)
 previous_count = None
