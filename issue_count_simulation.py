@@ -109,7 +109,10 @@ for i in range(NUM_SIMULATIONS):
             issues_left += weekend_progress[random.randint(0, len(weekend_progress) - 1)]
         time_spent += 1
         current_day += day
-    distribution[time_spent - 1] += 1
+
+    # Only count result if simulation finished
+    if time_spent != SAMPLE_CEILING:
+        distribution[time_spent - 1] += 1
 
 print "Distribution:"
 current_day = date.today()
